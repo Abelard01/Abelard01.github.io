@@ -1,0 +1,532 @@
+<!doctype html>
+<html lang="fr">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Abelard Mugisha · Data scientist santé</title>
+<meta name="description" content="Portfolio d'Abelard Mugisha : data science santé, vision médicale, prédiction clinique et MLOps.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=DM+Sans:ital,wght@0,400;0,500;0,600;0,700;1,400&family=DM+Serif+Display:ital@0;1&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+:root{
+  --bg:#F2F5FA; --bg-2:#F9FBFE; --ink:#0F1B2D; --ink-2:#4A5568; --ink-3:#6B778A;
+  --line:#D8E0EC; --dot:#C9D3E3; --accent:#1F4FD1; --accent-2:#5B85F0; --accent-bg:#E6EEFF;
+  --warn:#B4532A; --card:#FFFFFF;
+  --sans:"DM Sans",system-ui,sans-serif; --serif:"DM Serif Display",Georgia,serif; --mono:"IBM Plex Mono",ui-monospace,monospace;
+}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]){
+  --bg:#0B1020; --bg-2:#121831; --ink:#EDF0FA; --ink-2:#A6AECB; --ink-3:#8C95B8;
+  --line:#222B4A; --dot:#1E2643; --accent:#7AA2FF; --accent-2:#B5C8FF; --accent-bg:#17224A; --warn:#F0997B; --card:#121933;}}
+:root[data-theme="dark"]{
+  --bg:#0B1020; --bg-2:#121831; --ink:#EDF0FA; --ink-2:#A6AECB; --ink-3:#8C95B8;
+  --line:#222B4A; --dot:#1E2643; --accent:#7AA2FF; --accent-2:#B5C8FF; --accent-bg:#17224A; --warn:#F0997B; --card:#121933;}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{margin:0;background:var(--bg);color:var(--ink);font-family:var(--sans);line-height:1.6;
+  background-image:radial-gradient(var(--dot) 1px,transparent 1px);background-size:22px 22px}
+body.live{background-image:none}
+#bgfx{position:fixed;inset:0;width:100%;height:100%;z-index:-1;pointer-events:none}
+
+a{color:inherit}
+.wrap{max-width:1120px;margin:0 auto;padding:0 24px}
+@media(max-width:600px){.wrap{padding:0 16px}}
+
+/* header */
+header{position:sticky;top:0;z-index:20;backdrop-filter:blur(8px);background:color-mix(in srgb,var(--bg) 82%,transparent);border-bottom:1px solid transparent;transition:border-color .3s}
+header.scrolled{border-bottom-color:var(--line)}
+.bar{display:flex;align-items:center;justify-content:space-between;height:72px}
+.brand{display:flex;gap:12px;align-items:center;text-decoration:none}
+.logo{width:42px;height:42px;border-radius:10px;background:var(--ink);color:var(--bg);display:grid;place-items:center;font-weight:600;font-size:15px;letter-spacing:.02em}
+.brand b{display:block;font-size:16px;line-height:1.2;font-weight:600}
+.brand span{font-size:13px;color:var(--ink-2)}
+.kbtn{font-family:var(--mono);font-size:13px;background:var(--card);border:1px solid var(--line);border-radius:12px;padding:9px 14px;color:var(--ink);cursor:pointer;display:flex;gap:10px;align-items:center}
+.kbtn:hover{border-color:var(--ink-3)}
+
+/* hero */
+.hero{display:grid;grid-template-columns:1.05fr .95fr;gap:40px;align-items:center;padding:64px 0 40px}
+@media(max-width:900px){.hero{grid-template-columns:1fr;padding-top:36px}}
+h1{font-size:clamp(36px,5.4vw,64px);line-height:1.08;letter-spacing:-.025em;margin:0;font-weight:600}
+h1 em{display:block;font-family:var(--serif);font-style:italic;font-weight:400;color:var(--accent);letter-spacing:-.01em;font-size:1.06em;margin-top:4px}
+.lede{font-size:19px;color:var(--ink-2);max-width:30em;margin:26px 0 30px}
+.lede strong{color:var(--ink);font-weight:600}
+.cta{display:flex;gap:12px;flex-wrap:wrap}
+.btn{display:inline-flex;align-items:center;gap:8px;padding:13px 20px;border-radius:999px;font-weight:600;font-size:15px;text-decoration:none;border:1px solid var(--ink);transition:transform .15s}
+.btn:hover{transform:translateY(-2px)}
+.btn.primary{background:var(--ink);color:var(--bg)}
+.chips{display:flex;gap:8px;flex-wrap:wrap;margin-top:28px}
+.chip{font-family:var(--mono);font-size:12px;padding:5px 10px;border-radius:999px;border:1px solid var(--line);background:var(--bg-2);color:var(--ink-2)}
+.chip i{font-style:normal;color:var(--accent)}
+
+/* stack */
+.stackbox{position:relative;display:grid;grid-template-columns:1fr 170px;gap:8px;align-items:center}
+@media(max-width:520px){.stackbox{grid-template-columns:1fr}}
+.scene{height:470px;perspective:1400px;position:relative}
+.layer{position:absolute;left:50%;top:50%;width:250px;height:170px;margin:-85px 0 0 -125px;border-radius:18px;
+  background:var(--card);border:1px solid var(--line);padding:16px 18px;
+  transform-style:preserve-3d;transition:transform .9s cubic-bezier(.2,.8,.2,1),border-color .3s,background .3s;
+  box-shadow:0 30px 40px -30px rgba(0,0,0,.35)}
+.layer .tag{font-family:var(--mono);font-size:11px;font-weight:500;color:var(--ink-2);letter-spacing:.06em}
+.layer h4{margin:4px 0 8px;font-size:16px}
+.layer .row{display:flex;justify-content:space-between;font-family:var(--mono);font-size:11.5px;color:var(--ink-2);border-top:1px dashed var(--line);padding:5px 0}
+.layer .row b{color:var(--ink);font-weight:500}
+.layer.on{border-color:var(--accent);background:var(--accent-bg)}
+.layer.on .tag{color:var(--accent)}
+.legend{list-style:none;margin:0;padding:0;display:flex;flex-direction:column;gap:6px}
+@media(max-width:520px){.legend{flex-direction:row;flex-wrap:wrap}}
+.legend li{font-size:13px;padding:7px 10px;border-radius:10px;cursor:pointer;color:var(--ink-2);display:flex;gap:8px;align-items:center;border:1px solid transparent}
+.legend li span{font-family:var(--mono);font-size:11px;color:var(--ink-2)}
+.legend li.on{color:var(--ink);border-color:var(--line);background:var(--card)}
+.legend li.on span{color:var(--accent)}
+.caption{display:inline-block;font-family:var(--mono);font-size:12px;font-weight:500;color:var(--ink-2);letter-spacing:.04em;background:var(--card);border:1px solid var(--line);border-radius:999px;padding:5px 12px;margin-bottom:6px}
+
+/* sections */
+section{padding:90px 0 30px}
+.eyebrow{display:inline-block;font-family:var(--mono);font-size:13px;font-weight:500;color:var(--accent);letter-spacing:.06em;background:var(--card);border:1px solid var(--line);border-radius:999px;padding:5px 12px}
+h2{font-size:clamp(28px,3.6vw,44px);letter-spacing:-.02em;line-height:1.15;margin:10px 0 14px;font-weight:600}
+h2 em{font-family:var(--serif);font-style:italic;font-weight:400;color:var(--accent)}
+.intro{color:var(--ink-2);font-size:18px;max-width:38em;margin:0 0 40px}
+
+.grid3{display:grid;grid-template-columns:repeat(auto-fit,minmax(260px,1fr));gap:16px}
+.skill{background:var(--card);border:1px solid var(--line);border-radius:18px;padding:22px;transition:transform .2s,border-color .2s}
+.skill:hover{transform:translateY(-4px);border-color:var(--ink-3)}
+.skill .n{font-family:var(--mono);font-size:12px;color:var(--ink-2)}
+.skill h3{margin:8px 0 6px;font-size:20px;letter-spacing:-.01em}
+.skill p{margin:0 0 12px;color:var(--ink-2);font-size:15px}
+.skill a{font-size:14px;font-weight:600;color:var(--accent);text-decoration:none}
+
+/* case studies */
+.case{background:var(--card);border:1px solid var(--line);border-radius:24px;overflow:hidden;margin-bottom:22px}
+.case-top{display:flex;justify-content:space-between;align-items:center;padding:12px 20px;border-bottom:1px solid var(--line);font-family:var(--mono);font-size:12px;color:var(--ink-3);background:var(--bg-2)}
+.case-top .dots{display:flex;gap:6px}.case-top .dots i{width:10px;height:10px;border-radius:50%;background:var(--line);display:block}
+.case-body{display:grid;grid-template-columns:1fr 1fr;gap:32px;padding:30px}
+@media(max-width:860px){.case-body{grid-template-columns:1fr;padding:22px}}
+.case .kicker{font-family:var(--mono);font-size:12px;color:var(--ink-2);letter-spacing:.06em}
+.case h3{font-size:27px;letter-spacing:-.015em;font-weight:600;margin:6px 0 8px;line-height:1.1}
+.case .hook{font-family:var(--serif);font-style:italic;font-size:21px;color:var(--ink-2);margin:0 0 18px;line-height:1.35}
+.decision{border-left:3px solid var(--accent);padding:4px 0 4px 14px;margin:0 0 18px}
+.decision b{font-family:var(--mono);font-size:11px;letter-spacing:.1em;color:var(--accent);display:block;margin-bottom:4px}
+.decision p{margin:0;font-size:15px}
+.case p.desc{color:var(--ink-2);font-size:15px;margin:0 0 20px}
+.stats{display:grid;grid-template-columns:repeat(3,1fr);gap:10px;margin-bottom:20px}
+.stat{border:1px solid var(--line);border-radius:14px;padding:12px}
+.stat .v{font-size:27px;font-weight:600;letter-spacing:-.02em;line-height:1.1}
+.stat .l{font-size:12px;color:var(--ink-2);line-height:1.35;margin-top:4px}
+.links{display:flex;gap:10px;flex-wrap:wrap}
+.links .btn{padding:10px 16px;font-size:14px}
+.viz{background:var(--bg-2);border:1px solid var(--line);border-radius:18px;padding:20px;display:flex;flex-direction:column;justify-content:center;min-height:320px}
+.viz .vt{font-family:var(--mono);font-size:11.5px;color:var(--ink-2);letter-spacing:.08em;margin-bottom:14px}
+.note{font-size:11.5px;color:var(--ink-3);margin-top:12px}
+
+/* pipeline viz */
+.pipe{display:flex;flex-direction:column;gap:10px}
+.pstep{display:flex;align-items:center;gap:12px;padding:10px 12px;border-radius:12px;border:1px solid var(--line);background:var(--card);transition:all .4s}
+.pstep .ix{font-family:var(--mono);font-size:11px;color:var(--ink-3);width:22px}
+.pstep b{font-size:14px;font-weight:600}.pstep small{display:block;font-size:12px;color:var(--ink-2)}
+.pstep.on{border-color:var(--accent);background:var(--accent-bg);transform:translateX(6px)}
+.verdict{display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-top:4px}
+.verdict div{border-radius:12px;padding:10px;font-size:13px;text-align:center;border:1px dashed var(--line);color:var(--ink-2)}
+.verdict div.on{border-style:solid;border-color:var(--accent);color:var(--ink);font-weight:600}
+
+/* bars */
+.bars{display:flex;flex-direction:column;gap:16px}
+.bl{display:flex;justify-content:space-between;font-size:13px;margin-bottom:6px}
+.bl b{font-family:var(--mono);font-weight:500}
+.track{height:14px;border-radius:999px;background:var(--line);overflow:hidden}
+.fill{height:100%;width:0;border-radius:999px;background:var(--ink-3);transition:width 1.4s cubic-bezier(.2,.8,.2,1)}
+.fill.acc{background:var(--accent)}
+
+/* avatar viz */
+.avatar-viz svg{width:100%;height:auto}
+
+/* timeline */
+.tl{position:relative;margin-left:8px;border-left:2px solid var(--line);padding-left:26px}
+.tl .it{position:relative;padding:0 0 30px}
+.tl .it::before{content:"";box-sizing:border-box;position:absolute;left:-34px;top:3px;width:14px;height:14px;border-radius:50%;background:var(--bg);border:2px solid var(--ink-3)}
+.tl .it.data::before{border-color:var(--accent);background:var(--accent)}
+.tl .d{font-family:var(--mono);font-size:12px;color:var(--ink-3)}
+.tl h4{margin:2px 0 2px;font-size:18px}
+.tl p{margin:0;color:var(--ink-2);font-size:15px}
+.about{display:grid;grid-template-columns:260px 1fr;gap:40px;align-items:start}
+@media(max-width:760px){.about{grid-template-columns:1fr}}
+.photo{width:100%;max-width:260px;aspect-ratio:4/5;object-fit:cover;border-radius:22px;border:1px solid var(--line);filter:grayscale(.15)}
+
+/* contact */
+.contact{background:var(--ink);color:var(--bg);border-radius:28px;padding:56px 40px;margin:60px 0 40px;text-align:center}
+.contact h2{color:var(--bg)}
+.contact h2 em{color:var(--accent-2)}
+.contact .eyebrow{background:transparent;border-color:color-mix(in srgb,var(--bg) 30%,transparent)}
+.contact p{color:color-mix(in srgb,var(--bg) 70%,transparent);font-size:18px;margin:0 auto 28px;max-width:32em}
+.contact .btn{border-color:var(--bg)}
+.contact .btn.primary{background:var(--bg);color:var(--ink)}
+.coords{display:grid;grid-template-columns:repeat(auto-fit,minmax(260px,1fr));gap:10px;max-width:900px;margin:34px auto 0;text-align:left}
+.coord{display:flex;gap:12px;align-items:center;padding:14px 16px;border-radius:16px;border:1px solid color-mix(in srgb,var(--bg) 22%,transparent);text-decoration:none;color:var(--bg);transition:background .2s,border-color .2s;cursor:pointer;background:transparent;font:inherit;text-align:left;min-width:0}
+.coord:hover{background:color-mix(in srgb,var(--bg) 8%,transparent);border-color:color-mix(in srgb,var(--bg) 45%,transparent)}
+.coord svg{flex:none;width:20px;height:20px;stroke:var(--accent-2);fill:none;stroke-width:1.8;stroke-linecap:round;stroke-linejoin:round}
+.coord small{display:block;font-family:var(--mono);font-size:11px;letter-spacing:.06em;color:color-mix(in srgb,var(--bg) 60%,transparent)}
+.coord span{font-size:15px;font-weight:500;overflow-wrap:anywhere}
+.coord div{min-width:0}
+footer{font-family:var(--mono);font-size:12px;color:var(--ink-3);text-align:center;padding:10px 0 40px}
+
+/* reveal */
+.rv{opacity:0;transform:translateY(24px);transition:opacity .8s,transform .8s cubic-bezier(.2,.8,.2,1)}
+.rv.in{opacity:1;transform:none}
+
+/* palette */
+.pal-bg{position:fixed;inset:0;background:rgba(0,0,0,.35);display:none;align-items:flex-start;justify-content:center;padding-top:14vh;z-index:50}
+.pal-bg.open{display:flex}
+.pal{width:min(560px,92vw);background:var(--card);border:1px solid var(--line);border-radius:18px;overflow:hidden;box-shadow:0 30px 80px -20px rgba(0,0,0,.4)}
+.pal input{width:100%;border:0;border-bottom:1px solid var(--line);padding:18px 20px;font:16px var(--sans);background:transparent;color:var(--ink);outline:none}
+.pal ul{list-style:none;margin:0;padding:8px;max-height:320px;overflow:auto}
+.pal li{padding:10px 12px;border-radius:10px;cursor:pointer;display:flex;justify-content:space-between;font-size:15px}
+.pal li span{font-family:var(--mono);font-size:12px;color:var(--ink-3)}
+.pal li.sel{background:var(--accent-bg)}
+
+@media(max-width:520px){.scene{height:400px;transform:scale(.8);transform-origin:center}.brand span{display:none}#kk{display:none}}
+
+@media (prefers-reduced-motion:reduce){*{transition:none!important;animation:none!important}.rv{opacity:1;transform:none}}
+</style>
+</head>
+<body>
+
+<header id="hdr"><div class="wrap bar">
+  <a class="brand" href="#top"><div class="logo">AM</div><div><b>Abelard Mugisha</b><span>Data scientist santé · Ingénieur biomédical</span></div></a>
+  <button class="kbtn" id="kbtn" aria-label="Ouvrir la palette de commandes">&gt;_ <span id="kk">Ctrl K</span></button>
+</div></header>
+
+<main id="top" class="wrap">
+
+<!-- HERO -->
+<div class="hero">
+  <div class="rv">
+    <h1>Je transforme la donnée médicale <em>en décisions cliniques.</em></h1>
+    <p class="lede">Entraîner un modèle, c'est la partie visible. Mon travail, c'est <strong>tout ce qu'il faut autour</strong> pour qu'il serve vraiment à un soignant : des données propres, une validation honnête et un déploiement fiable.</p>
+    <div class="cta">
+      <a class="btn primary" href="#projets">Voir les projets →</a>
+      <a class="btn" href="#contact">Me contacter</a>
+    </div>
+    <div class="chips">
+      <span class="chip"><i>●</i> Lauréat Hacking Health Camp 2026</span>
+      <span class="chip">Master IDS · Unistra</span>
+      <span class="chip">Alternance / stage M2</span>
+    </div>
+  </div>
+
+  <div class="rv">
+    <div class="caption">Les couches d'un outil d'IA clinique · exemple DiagnosHand</div>
+    <div class="stackbox">
+      <div class="scene" id="scene">
+        <div class="layer" data-i="0"><div class="tag">01 PATIENT</div><h4>Photo d'une plaie de la main</h4><div class="row"><span>source</span><b>urgences SOS Main</b></div><div class="row"><span>question</span><b>suture ou bloc ?</b></div></div>
+        <div class="layer" data-i="1"><div class="tag">02 DONNÉES</div><h4>Images annotées</h4><div class="row"><span>exploitables</span><b>561</b></div><div class="row"><span>split stratifié</span><b>448 / 113</b></div></div>
+        <div class="layer" data-i="2"><div class="tag">03 MODÈLE</div><h4>BiomedCLIP multimodal</h4><div class="row"><span>AUC validation</span><b>0,91</b></div><div class="row"><span>seuil (Youden)</span><b>0,35</b></div></div>
+        <div class="layer" data-i="3"><div class="tag">04 API</div><h4>FastAPI · Docker</h4><div class="row"><span>routes</span><b>/health · /predict</b></div><div class="row"><span>qualité</span><b>Pytest · Ruff · CI</b></div></div>
+        <div class="layer" data-i="4"><div class="tag">05 DÉCISION</div><h4>Orientation du patient</h4><div class="row"><span>faux négatifs</span><b>1,8 %</b></div><div class="row"><span>chirurgies évitées</span><b>15 / 113</b></div></div>
+      </div>
+      <ul class="legend" id="legend">
+        <li data-i="4"><span>05</span>Décision</li>
+        <li data-i="3"><span>04</span>API</li>
+        <li data-i="2"><span>03</span>Modèle</li>
+        <li data-i="1"><span>02</span>Données</li>
+        <li data-i="0"><span>01</span>Patient</li>
+      </ul>
+    </div>
+  </div>
+</div>
+
+<!-- 01 -->
+<section id="savoir-faire">
+  <div class="rv">
+    <div class="eyebrow">01 / CE QUE JE FAIS</div>
+    <h2>Un modèle médical, <em>c'est un système.</em></h2>
+    <p class="intro">L'ingénierie biomédicale m'a appris que le capteur, le logiciel et le soignant ne fonctionnent qu'ensemble. Je construis mes modèles de la même façon.</p>
+  </div>
+  <div class="grid3">
+    <div class="skill rv"><div class="n">01</div><h3>Vision médicale</h3><p>Deep learning sur images cliniques : CNN, modèles multimodaux image + texte (BiomedCLIP).</p><a href="#diagnoshand">DiagnosHand →</a></div>
+    <div class="skill rv"><div class="n">02</div><h3>Prédiction clinique</h3><p>Modèles sur données de vie réelle, gestion du déséquilibre de classes et choix du seuil de décision.</p><a href="#asthme">Asthme RWD →</a></div>
+    <div class="skill rv"><div class="n">03</div><h3>Données synthétiques et RGPD</h3><p>Des cohortes artificielles utiles pour l'analyse, sans exposer de vrais patients (méthode Avatar).</p><a href="#asthme">Données synthétiques →</a></div>
+    <div class="skill rv"><div class="n">04</div><h3>Biostatistique d'essais</h3><p>Réplication d'essais cliniques : analyse en ITT, tests statistiques, figures de publication.</p><a href="#essai">Essai NIDA →</a></div>
+    <div class="skill rv"><div class="n">05</div><h3>MLOps et déploiement</h3><p>API FastAPI, Docker, tests, CI GitHub Actions : du notebook à un outil testé en conditions réelles.</p><a href="#diagnoshand">Voir l'API →</a></div>
+    <div class="skill rv"><div class="n">06</div><h3>Dispositifs médicaux</h3><p>Terrain hospitalier : qualité biomédicale, achat et maintenance d'équipements, imagerie.</p><a href="#parcours">Parcours →</a></div>
+  </div>
+</section>
+
+<!-- 02 -->
+<section id="projets">
+  <div class="rv">
+    <div class="eyebrow">02 / PROJETS</div>
+    <h2>Des projets <em>dont je suis fier.</em></h2>
+    <p class="intro">Pour chacun : le problème clinique, la décision difficile que j'ai prise et les résultats mesurés.</p>
+  </div>
+
+  <!-- DiagnosHand -->
+  <article class="case rv" id="diagnoshand">
+    <div class="case-top"><div class="dots"><i></i><i></i><i></i></div><span>diagnoshand.case</span><span>VISION · MLOPS</span></div>
+    <div class="case-body">
+      <div>
+        <div class="kicker">01 · HACKING HEALTH CAMP 2026 · STAGE SOS MAIN</div>
+        <h3>DiagnosHand : triage IA des plaies de la main</h3>
+        <p class="hook">Rater une lésion grave coûte bien plus cher qu'une exploration de trop.</p>
+        <div class="decision"><b>DÉCISION</b><p>Seuil fixé à 0,35 par l'indice de Youden pour privilégier la sensibilité, puis passage d'un CNN à un modèle multimodal pour réduire les faux positifs.</p></div>
+        <p class="desc">À partir d'une photo de plaie, le modèle indique si une suture simple suffit ou s'il faut une exploration chirurgicale. L'outil est en phase de tests réels à Strasbourg.</p>
+        <div class="stats">
+          <div class="stat"><div class="v" data-count="0.91" data-dec="2">0</div><div class="l">AUC en validation (BiomedCLIP)</div></div>
+          <div class="stat"><div class="v" data-count="1.8" data-dec="1" data-suf=" %">0</div><div class="l">de faux négatifs sur 113 patients</div></div>
+          <div class="stat"><div class="v" data-count="15" data-dec="0">0</div><div class="l">chirurgies inutiles évitées</div></div>
+        </div>
+        <div class="links">
+          <a class="btn primary" href="https://portfolio-ia-sante-w2qgc2rfzfvkg5ewrccrg6.streamlit.app/" target="_blank" rel="noopener">Tester la démo ↗</a>
+          <a class="btn" href="https://github.com/Abelard01" target="_blank" rel="noopener">Code ↗</a>
+        </div>
+      </div>
+      <div class="viz">
+        <div class="vt">PARCOURS D'UNE PHOTO DANS LE SYSTÈME</div>
+        <div class="pipe" id="pipe">
+          <div class="pstep"><span class="ix">01</span><div><b>Photo de la plaie</b><small>prise aux urgences</small></div></div>
+          <div class="pstep"><span class="ix">02</span><div><b>Prétraitement</b><small>224 × 224, normalisation</small></div></div>
+          <div class="pstep"><span class="ix">03</span><div><b>BiomedCLIP + tête MLP</b><small>image + texte clinique</small></div></div>
+          <div class="pstep"><span class="ix">04</span><div><b>Score comparé au seuil 0,35</b><small>route /predict de l'API</small></div></div>
+          <div class="verdict" id="verdict"><div>Suture simple<br><small>urgentiste</small></div><div>Exploration<br><small>chirurgien</small></div></div>
+        </div>
+        <div class="vt" style="margin-top:22px">FAUX POSITIFS SUR LE JEU DE TEST</div>
+        <div class="bars">
+          <div><div class="bl"><span>CNN EfficientNetV2-S</span><b>36,3 %</b></div><div class="track"><div class="fill" data-w="36.3"></div></div></div>
+          <div><div class="bl"><span>BiomedCLIP</span><b>23,0 %</b></div><div class="track"><div class="fill acc" data-w="23.0"></div></div></div>
+        </div>
+      </div>
+    </div>
+  </article>
+
+  <!-- Asthme -->
+  <article class="case rv" id="asthme">
+    <div class="case-top"><div class="dots"><i></i><i></i><i></i></div><span>asthme-rwd.case</span><span>PRÉDICTION · RGPD</span></div>
+    <div class="case-body">
+      <div>
+        <div class="kicker">02 · DATA CHALLENGE II · M1 · ÉQUIPE DE 3</div>
+        <h3>Exacerbations de l'asthme et données synthétiques</h3>
+        <p class="hook">Comment partager une cohorte de patients sans jamais exposer un vrai patient ?</p>
+        <div class="decision"><b>DÉCISION</b><p>Générer des « avatars » de patients (méthode Avatar, k plus proches voisins) et mesurer à la fois l'utilité statistique et la confidentialité, au lieu de seulement anonymiser.</p></div>
+        <p class="desc">Pipeline scikit-learn reproductible (imputation, standardisation, encodage), comparaison SVM et XGBoost, gestion du déséquilibre des classes et optimisation du seuil.</p>
+        <div class="stats">
+          <div class="stat"><div class="v" data-count="14575" data-dec="0">0</div><div class="l">patients asthmatiques, 21 variables</div></div>
+          <div class="stat"><div class="v" data-count="0.098" data-dec="3">0</div><div class="l">distance de Wasserstein moyenne</div></div>
+          <div class="stat"><div class="v" data-count="0.0105" data-dec="4">0</div><div class="l">écart moyen des corrélations</div></div>
+        </div>
+        <div class="links">
+          <a class="btn primary" href="https://portfolio-ia-sante-w2qgc2rfzfvkg5ewrccrg6.streamlit.app/" target="_blank" rel="noopener">Tester la démo ↗</a>
+          <a class="btn" href="https://github.com/Abelard01" target="_blank" rel="noopener">Code ↗</a>
+        </div>
+      </div>
+      <div class="viz avatar-viz">
+        <div class="vt">MÉTHODE AVATAR · SCHÉMA DE PRINCIPE</div>
+        <svg viewBox="0 0 360 250" id="avsvg" role="img" aria-label="Schéma : chaque vrai patient est remplacé par un avatar calculé à partir de ses voisins">
+          <text x="70" y="18" text-anchor="middle" font-size="11" fill="var(--ink-3)" font-family="JetBrains Mono">VRAIS PATIENTS</text>
+          <text x="290" y="18" text-anchor="middle" font-size="11" fill="var(--ink-3)" font-family="JetBrains Mono">AVATARS</text>
+          <g id="real"></g><g id="links"></g><g id="avat"></g>
+        </svg>
+        <div class="note">Schéma illustratif (points non réels). Les chiffres à gauche sont les résultats mesurés.</div>
+      </div>
+    </div>
+  </article>
+
+  <!-- Essai -->
+  <article class="case rv" id="essai">
+    <div class="case-top"><div class="dots"><i></i><i></i><i></i></div><span>essai-nida.case</span><span>BIOSTATISTIQUE</span></div>
+    <div class="case-body">
+      <div>
+        <div class="kicker">03 · PROJET PUBLIÉ SUR GITHUB</div>
+        <h3>Réplication d'un essai clinique : buprénorphine-naloxone vs clonidine</h3>
+        <p class="hook">Retrouver, avec mes propres analyses, le résultat d'un essai publié.</p>
+        <div class="decision"><b>DÉCISION</b><p>Analyse en intention de traiter (ITT) : chaque patient reste dans son groupe d'origine, même s'il a arrêté, pour éviter de gonfler l'effet du traitement.</p></div>
+        <p class="desc">Réplication de l'essai NIDA CTN-0003 (Ling et al., 2005) sur la détoxification aux opiacés, avec tableaux, figures de publication et diagramme de flux.</p>
+        <div class="stats">
+          <div class="stat"><div class="v" data-count="411" data-dec="0">0</div><div class="l">patients analysés en ITT</div></div>
+          <div class="stat"><div class="v" data-count="5" data-dec="0" data-suf="×">0</div><div class="l">plus de succès environ (33,5 % vs 6,7 %)</div></div>
+          <div class="stat"><div class="v">&lt;0,001</div><div class="l">valeur p de la différence</div></div>
+        </div>
+        <div class="links">
+          <a class="btn" href="https://github.com/Abelard01/Essaie-Clinique-Buprenorphine-NIDA-" target="_blank" rel="noopener">Code et figures ↗</a>
+        </div>
+      </div>
+      <div class="viz">
+        <div class="vt">TAUX DE SUCCÈS DU SEVRAGE</div>
+        <div class="bars">
+          <div><div class="bl"><span>Buprénorphine-naloxone</span><b>33,5 %</b></div><div class="track" style="height:26px"><div class="fill acc" data-w="33.5"></div></div></div>
+          <div><div class="bl"><span>Clonidine</span><b>6,7 %</b></div><div class="track" style="height:26px"><div class="fill" data-w="6.7"></div></div></div>
+        </div>
+        <div class="note">Échelle de 0 à 100 %. Différence significative (p &lt; 0,001).</div>
+      </div>
+    </div>
+  </article>
+</section>
+
+<!-- 03 -->
+<section id="parcours">
+  <div class="rv">
+    <div class="eyebrow">03 / PARCOURS</div>
+    <h2>De l'hôpital <em>à la donnée.</em></h2>
+  </div>
+  <div class="about">
+    <img class="photo rv" src="images/photo.jpg" alt="Photo d'Abelard Mugisha">
+    <div class="tl rv">
+      <div class="it data"><div class="d">2026 · PRÉSENT</div><h4>Stage data science, SOS Main</h4><p>API de triage par IA (BiomedCLIP), CI/CD, tests réels à Strasbourg.</p></div>
+      <div class="it data"><div class="d">2026</div><h4>Lauréat du Hacking Health Camp</h4><p>Projet DIA'GNOS HAND, projet n°31.</p></div>
+      <div class="it data"><div class="d">2025 · EN COURS</div><h4>Master Ingénierie de la santé, parcours IDS</h4><p>Intelligence des données de santé, Université de Strasbourg.</p></div>
+      <div class="it data"><div class="d">2024 · 2025</div><h4>Certification data science</h4><p>Python, Power BI, machine learning et deep learning (OpenClassrooms, GoMyCode).</p></div>
+      <div class="it"><div class="d">2024</div><h4>Consultant qualité biomédicale</h4><p>Hôpital des Spécialités : démarche qualité, achat et maintenance des dispositifs médicaux.</p></div>
+      <div class="it"><div class="d">2023</div><h4>Stagiaire ingénieur biomédical</h4><p>Kira Hospital : suivi des performances des équipements d'imagerie.</p></div>
+      <div class="it"><div class="d">2020 · 2024</div><h4>Licence en génie biomédical</h4><p>Université Mohammed VI des Sciences et de la Santé, Maroc.</p></div>
+    </div>
+  </div>
+</section>
+
+<!-- CONTACT -->
+<div class="contact rv" id="contact">
+  <div class="eyebrow" style="color:var(--accent-2)">04 / CONTACT</div>
+  <h2>Je cherche une alternance <em>ou un stage de M2.</em></h2>
+  <p>Pharma, HealthTech, dispositifs médicaux ou recherche : parlons de vos données de santé.</p>
+  <div class="cta" style="justify-content:center">
+    <a class="btn primary" href="mailto:abelard.mugisha@etu.unistra.fr">M'écrire</a>
+    <a class="btn" href="tel:+33759064802">M'appeler</a>
+  </div>
+  <div class="coords">
+    <button class="coord" type="button" data-copy="abelard.mugisha@etu.unistra.fr"><svg viewBox="0 0 24 24"><rect x="3" y="5" width="18" height="14" rx="2"/><path d="m3 7 9 6 9-6"/></svg><div><small>E-MAIL · COPIER</small><span>abelard.mugisha@etu.unistra.fr</span></div></button>
+    <a class="coord" href="tel:+33759064802"><svg viewBox="0 0 24 24"><path d="M5 4h4l2 5-2.5 1.5a11 11 0 0 0 5 5L15 13l5 2v4a2 2 0 0 1-2 2A16 16 0 0 1 3 6a2 2 0 0 1 2-2"/></svg><div><small>TÉLÉPHONE</small><span>07 59 06 48 02</span></div></a>
+    <div class="coord" style="cursor:default"><svg viewBox="0 0 24 24"><path d="M12 21s-7-6.2-7-11.5a7 7 0 0 1 14 0C19 14.8 12 21 12 21z"/><circle cx="12" cy="9.5" r="2.5"/></svg><div><small>VILLE</small><span>Strasbourg (67) · permis B</span></div></div>
+    <a class="coord" href="https://www.linkedin.com/in/abelard-mugisha" target="_blank" rel="noopener"><svg viewBox="0 0 24 24"><rect x="3" y="3" width="18" height="18" rx="3"/><path d="M8 10v7M8 7v.01M12 17v-4a2 2 0 0 1 4 0v4M12 10v7"/></svg><div><small>LINKEDIN</small><span>in/abelard-mugisha</span></div></a>
+    <a class="coord" href="https://github.com/Abelard01" target="_blank" rel="noopener"><svg viewBox="0 0 24 24"><path d="M9 19c-4.3 1.4-4.3-2.5-6-3m12 5v-3.5c0-1 .1-1.4-.5-2 2.8-.3 5.5-1.4 5.5-6a4.6 4.6 0 0 0-1.3-3.2 4.2 4.2 0 0 0-.1-3.2s-1.1-.3-3.5 1.3a12 12 0 0 0-6.2 0C6.5 2.8 5.4 3.1 5.4 3.1a4.2 4.2 0 0 0-.1 3.2A4.6 4.6 0 0 0 4 9.5c0 4.6 2.7 5.7 5.5 6-.6.6-.6 1.2-.5 2V21"/></svg><div><small>GITHUB</small><span>github.com/Abelard01</span></div></a>
+  </div>
+</div>
+<footer>© 2026 Abelard Mugisha · Strasbourg</footer>
+</main>
+
+<!-- palette -->
+<div class="pal-bg" id="pal" role="dialog" aria-label="Palette de commandes">
+  <div class="pal"><input id="palq" placeholder="Aller à… (projets, contact, GitHub)" autocomplete="off"><ul id="pall"></ul></div>
+</div>
+
+<script>
+// header border on scroll
+const hdr=document.getElementById('hdr');
+addEventListener('scroll',()=>hdr.classList.toggle('scrolled',scrollY>10),{passive:true});
+
+// 3D stack
+const layers=[...document.querySelectorAll('.layer')];
+const legend=[...document.querySelectorAll('#legend li')];
+let gap=22,active=4,userPick=false;
+function place(){
+  layers.forEach(l=>{
+    const i=+l.dataset.i, z=(i-2)*gap, lift=i===active?18:0;
+    l.style.transform=`translateY(${-z*0.95 - lift}px) rotateX(54deg) rotateZ(-32deg) translateZ(${z+lift}px)`;
+    l.style.zIndex=i;
+    l.classList.toggle('on',i===active);
+  });
+  legend.forEach(li=>li.classList.toggle('on',+li.dataset.i===active));
+}
+place();
+setTimeout(()=>{gap=50;place()},400);
+legend.forEach(li=>{
+  li.addEventListener('mouseenter',()=>{userPick=true;active=+li.dataset.i;place()});
+  li.addEventListener('click',()=>{userPick=true;active=+li.dataset.i;place()});
+});
+document.getElementById('legend').addEventListener('mouseleave',()=>userPick=false);
+setInterval(()=>{if(!userPick){active=(active+4)%5;place()}},2200);
+
+// reveal + counters + bars
+const fmt=(v,d)=>v.toLocaleString('fr-FR',{minimumFractionDigits:d,maximumFractionDigits:d});
+function count(el){
+  const to=+el.dataset.count,d=+el.dataset.dec||0,suf=el.dataset.suf||'',t0=performance.now(),dur=1300;
+  (function f(t){const p=Math.min(1,(t-t0)/dur),e=1-Math.pow(1-p,3);el.textContent=fmt(to*e,d)+suf;if(p<1)requestAnimationFrame(f)})(t0);
+}
+const io=new IntersectionObserver(es=>es.forEach(e=>{
+  if(!e.isIntersecting)return;
+  e.target.classList.add('in');
+  e.target.querySelectorAll('[data-count]').forEach(count);
+  e.target.querySelectorAll('.fill').forEach(f=>f.style.width=f.dataset.w+'%');
+  io.unobserve(e.target);
+}),{threshold:0,rootMargin:'0px 0px -8% 0px'});
+document.querySelectorAll('.rv').forEach(el=>io.observe(el));
+if(!('IntersectionObserver' in window))document.querySelectorAll('.rv').forEach(el=>el.classList.add('in'));
+
+// DiagnosHand pipeline animation
+const steps=[...document.querySelectorAll('#pipe .pstep')],vd=[...document.querySelectorAll('#verdict div')];
+let s=0,run=0;
+setInterval(()=>{
+  steps.forEach((x,i)=>x.classList.toggle('on',i===s));
+  vd.forEach(v=>v.classList.remove('on'));
+  if(s===4){vd[run%2].classList.add('on');run++}
+  s=(s+1)%5;
+},900);
+
+// Avatar schematic
+(function(){
+  const ns='http://www.w3.org/2000/svg',R=document.getElementById('real'),L=document.getElementById('links'),A=document.getElementById('avat');
+  let seed=7;const rnd=()=>(seed=(seed*9301+49297)%233280)/233280;
+  const pts=Array.from({length:16},()=>({x:20+rnd()*100,y:35+rnd()*200}));
+  pts.forEach(p=>{const c=document.createElementNS(ns,'circle');c.setAttribute('cx',p.x);c.setAttribute('cy',p.y);c.setAttribute('r',5);c.setAttribute('fill','var(--ink-3)');R.appendChild(c)});
+  function nn(p){return pts.map(q=>({q,d:Math.hypot(q.x-p.x,q.y-p.y)})).sort((a,b)=>a.d-b.d).slice(1,4).map(o=>o.q)}
+  let k=0;
+  function step(){
+    L.innerHTML='';
+    const p=pts[k%pts.length],ns3=nn(p);
+    const ax=(p.x+ns3.reduce((s,q)=>s+q.x,0))/4+220,ay=(p.y+ns3.reduce((s,q)=>s+q.y,0))/4;
+    [p,...ns3].forEach((q,i)=>{const l=document.createElementNS(ns,'line');l.setAttribute('x1',q.x);l.setAttribute('y1',q.y);l.setAttribute('x2',ax);l.setAttribute('y2',ay);l.setAttribute('stroke',i?'var(--line)':'var(--accent)');l.setAttribute('stroke-width',i?1:1.6);L.appendChild(l)});
+    R.querySelectorAll('circle').forEach((c,i)=>c.setAttribute('fill',i===k%pts.length?'var(--ink)':'var(--ink-3)'));
+    if(A.childNodes.length<pts.length){const c=document.createElementNS(ns,'circle');c.setAttribute('cx',ax);c.setAttribute('cy',ay);c.setAttribute('r',5);c.setAttribute('fill','var(--accent)');A.appendChild(c)}
+    k++;
+  }
+  step();setInterval(step,700);
+})();
+
+// copier l'e-mail
+document.querySelectorAll('[data-copy]').forEach(b=>b.addEventListener('click',async()=>{
+  const sm=b.querySelector('small'),old=sm.textContent;
+  try{await navigator.clipboard.writeText(b.dataset.copy);sm.textContent='E-MAIL · COPIÉ ✓'}catch(e){location.href='mailto:'+b.dataset.copy}
+  setTimeout(()=>sm.textContent=old,1800)}));
+
+// command palette
+const isMac=/Mac|iPhone|iPad/.test(navigator.platform);document.getElementById('kk').textContent=isMac?'⌘K':'Ctrl K';
+const cmds=[["Projets","#projets"],["DiagnosHand","#diagnoshand"],["Asthme et données synthétiques","#asthme"],["Essai clinique NIDA","#essai"],["Parcours","#parcours"],["Contact et coordonnées","#contact"],["Copier mon e-mail","copy"],["Démo Streamlit","https://portfolio-ia-sante-w2qgc2rfzfvkg5ewrccrg6.streamlit.app/"],["GitHub","https://github.com/Abelard01"],["LinkedIn","https://www.linkedin.com/in/abelard-mugisha"],["Basculer clair / sombre","theme"]];
+const pal=document.getElementById('pal'),q=document.getElementById('palq'),ul=document.getElementById('pall');let sel=0,cur=[];
+function render(){cur=cmds.filter(c=>c[0].toLowerCase().includes(q.value.toLowerCase()));sel=Math.min(sel,Math.max(0,cur.length-1));
+  ul.innerHTML=cur.map((c,i)=>`<li class="${i===sel?'sel':''}" data-i="${i}">${c[0]}<span>${c[1].startsWith('http')?'↗':c[1]==='theme'?'◐':c[1]==='copy'?'⧉':'↵'}</span></li>`).join('')}
+function openP(){pal.classList.add('open');q.value='';sel=0;render();q.focus()}
+function closeP(){pal.classList.remove('open')}
+function go(c){closeP();if(!c)return;if(c[1]==='copy'){navigator.clipboard&&navigator.clipboard.writeText('abelard.mugisha@etu.unistra.fr')}else if(c[1]==='theme'){const r=document.documentElement,dark=r.dataset.theme?r.dataset.theme==='dark':matchMedia('(prefers-color-scheme:dark)').matches;r.dataset.theme=dark?'light':'dark'}else if(c[1].startsWith('http'))window.open(c[1],'_blank','noopener');else location.hash=c[1]}
+document.getElementById('kbtn').onclick=openP;
+addEventListener('keydown',e=>{
+  if((e.ctrlKey||e.metaKey)&&e.key.toLowerCase()==='k'){e.preventDefault();pal.classList.contains('open')?closeP():openP()}
+  if(!pal.classList.contains('open'))return;
+  if(e.key==='Escape')closeP();
+  if(e.key==='ArrowDown'){sel=(sel+1)%cur.length;render();e.preventDefault()}
+  if(e.key==='ArrowUp'){sel=(sel-1+cur.length)%cur.length;render();e.preventDefault()}
+  if(e.key==='Enter')go(cur[sel]);
+});
+q.addEventListener('input',()=>{sel=0;render()});
+ul.addEventListener('click',e=>{const li=e.target.closest('li');if(li)go(cur[+li.dataset.i])});
+pal.addEventListener('click',e=>{if(e.target===pal)closeP()});
+</script>
+<canvas id="bgfx" aria-hidden="true"></canvas>
+<script>
+// fond animé : vague sur la grille de points
+(function(){
+  const cv=document.getElementById('bgfx'),cx=cv.getContext('2d');
+  const reduce=matchMedia('(prefers-reduced-motion:reduce)').matches;
+  let W=0,H=0,col={},n=0;const t0=performance.now();
+  function colors(){const cs=getComputedStyle(document.documentElement);col={dot:cs.getPropertyValue('--dot').trim(),acc:cs.getPropertyValue('--accent').trim()}}
+  function rgba(hex,a){const v=parseInt(hex.slice(1),16);return `rgba(${v>>16},${v>>8&255},${v&255},${a})`}
+  function size(){const d=Math.min(2,devicePixelRatio||1);W=innerWidth;H=innerHeight;cv.width=W*d;cv.height=H*d;cx.setTransform(d,0,0,d,0,0)}
+  function frame(now){
+    if(n++%30===0)colors();
+    const t=(now-t0)/1000,g=22;cx.clearRect(0,0,W,H);
+    for(let y=g/2;y<H;y+=g)for(let x=g/2;x<W;x+=g){
+      const k=(Math.sin(x/90+y/140-t*1.2)+1)/2;
+      cx.fillStyle=k>.8?rgba(col.acc,.38*(k-.6)/.4):col.dot;
+      cx.beginPath();cx.arc(x,y,.8+1.2*k,0,7);cx.fill()}
+    if(!reduce)requestAnimationFrame(frame);
+  }
+  addEventListener('resize',size);size();colors();
+  document.body.classList.add('live');requestAnimationFrame(frame);
+})();
+</script>
+</body>
+</html>
